@@ -1,3 +1,5 @@
+//singnup, login and logout
+
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -58,9 +60,48 @@ export const signup = async(req, res) => {
         res.status(500).json({message: "Internal server error"});
     }
 }
-export const login = (req, res) => {
-    res.send("login");
-}
+export const login = async(req, res) => {
+    try {
+        const {username, password} = req.body;
+
+        //check if user exists
+        const user = await User.findOne({username});console.log(user.username);
+        if(!user)
+        {
+            return res.status(400).json({message: "Invalid credentials / User not found"});
+        }
+
+        //check password
+        const isMatch = await bcrypt.compare(password, user.password);
+        if(!isMatch)
+        {
+            return res.status(400).json({message: "Invalid credentials / Password incorrect"});
+        }
+
+        //create and send token for cookie (token will expire in 3 days)
+        const token = jwt.sign({userId:user._id}, process.env.JWT_SECRET,{expiresIn:"3d"});
+        await res.cookie("jwt-peernet", token, {
+            httpOnly: true, //prevents XSS attack
+            secure: process.env.NODE_ENV === "production", //prevents man-in-the-middle attacks
+            sameSite: "strict", //prevents CSRF attacks
+            maxAge: 3*24*60*60*1000
+        });
+        res.json({message: "User logged in successfully"});
+    } catch (error) {
+        console.error("Error in login controller", error);
+        res.status(500).json({message: "Internal server error"});
+    }
+};
 export const logout = (req, res) => {
-    res.send("logout");
+    res.clearCookie("jwt-peernet");
+    res.json({message: "User logged out successfully"});
+}
+
+export const getCurrentUser = async(req, res) => {
+    try {
+        res.json(user);
+    } catch (error) {
+        console.error("Error in getCurrentUser controller", error);
+        res.status(500).json({message: "Internal server error"});
+    }
 }
