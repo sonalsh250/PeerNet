@@ -1,10 +1,12 @@
 import Post from "../models/post.model.js";
 import Notification from "../models/notification.model.js"; //notification
+import cloudinary from "../lib/cloudinary.js";
 
 export const getFeedPosts = async(req, res) => {
     try {
         //take posts from users that we are connected with from req.users.connections
-        const posts = await Post.find({ author: { $in: req.user.connections } })
+        //const posts = await Post.find({ author: { $in: [...req.user.connections, req.user._id] } })
+        const posts = await Post.find({ author: { $in: [req.user.connections, req.user._id] } })
         .populate("author", "name username profilePicture college headline")
         .populate("comments.user", "name profilePicture")
         .sort({createdAt: - 1});
