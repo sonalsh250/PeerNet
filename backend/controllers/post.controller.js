@@ -1,6 +1,7 @@
 import Post from "../models/post.model.js";
 import Notification from "../models/notification.model.js"; //notification
 import cloudinary from "../lib/cloudinary.js";
+import { sendCommentNotificatioEmail } from "../emails/emailHandlers.js";
 
 export const getFeedPosts = async(req, res) => {
     try {
@@ -115,7 +116,7 @@ export const createComment = async(req, res) => {
         if(post.author.toString() !== req.user._id.toString())
         {
             const newNotification = new Notification ({
-                receipient: post.author,
+                recipient: post.author,
                 type: "comment",
                 relatedUser: req.user._id,
                 relatedPost: post._id

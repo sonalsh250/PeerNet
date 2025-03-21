@@ -21,7 +21,7 @@ export default function Sidebar({ user }) {
 				</Link>
 				<p className='text-info'>{user.headline}</p>
 				{/* <p className='text-info text-xs'>{user.connections.length} connections</p> */}
-				<p className='text-info text-xs'>{user?.connections?.length || 0} connections</p>
+ 				<p className='text-info text-xs'>{user?.connections?.length || 0} connections</p>
 			</div>
 			<div className='border-t border-base-100 p-4'>
 				<nav>
