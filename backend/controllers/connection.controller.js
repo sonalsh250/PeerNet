@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { sendConnectionAcceptedEmail } from "../emails/emailHandlers.js";
 import ConnectionRequest from "../models/connectionRequest.model.js";
 import Notification from "../models/notification.model.js";
@@ -7,6 +8,12 @@ export const sendConnectionRequest = async (req, res) => {
 	try {
 		const { userId } = req.params;
 		const senderId = req.user._id;
+		console.log("userid ", userId);
+		console.log("senderid ", senderId);
+		//validate user id
+		// if(!mongoose.Types.ObjectId.isValid(userId)) {
+		// 	return res.status(400).json({ message: "Invalid user ID" });
+		// }
 
 		if (senderId.toString() === userId) {
 			return res.status(400).json({ message: "You can't send a request to yourself" });
@@ -36,6 +43,7 @@ export const sendConnectionRequest = async (req, res) => {
 
 		res.status(201).json({ message: "Connection request sent successfully" });
 	} catch (error) {
+		console.error("error in sendConnectionRequest controller", error);
 		res.status(500).json({ message: "Server error" });
 	}
 };
@@ -176,6 +184,15 @@ export const getConnectionStatus = async (req, res) => {
 		const currentUserId = req.user._id;
 
 		const currentUser = req.user; //current user
+
+		// if (!currentUser.connections || !Array.isArray(currentUser.connections)) {
+		// 	return res.status(500).json({ message: "Current user connections are not valid" });
+		// }
+		if(!Array.isArray(currentUser.connections))
+		{
+			currentUser.connections=[];
+		}
+
 		if (currentUser.connections.includes(targetUserId)) {
 			return res.json({ status: "connected" });
 		}

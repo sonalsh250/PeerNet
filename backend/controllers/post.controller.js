@@ -113,7 +113,7 @@ export const createComment = async(req, res) => {
         ).populate("author", "name email username profilePicture college headline");
 
         //create a notification for the comment
-        if(post.author.toString() !== req.user._id.toString())
+        if(post.author._id.toString() !== req.user._id.toString())
         {
             const newNotification = new Notification ({
                 recipient: post.author,

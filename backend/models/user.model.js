@@ -59,10 +59,11 @@ const userSchema = new mongoose.Schema({
             endDate: Number
         }
     ],
-    connection : [
+    connections : [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "User"
+            ref: "User",
+            default: []
         }
     ]
 },
