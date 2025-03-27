@@ -6,7 +6,7 @@ import { Bell, Home, LogOut, User, Users } from "lucide-react";
 const Navbar = () => {
 	const { data: authUser } = useQuery({ queryKey: ["authUser"], queryFn: async () => {return null} });
 	const queryClient = useQueryClient();
-
+	console.log("navbar user", authUser);
 	const { data: notifications } = useQuery({
 		queryKey: ["notifications"],
 		queryFn: async () => axiosInstance.get("/notifications"),

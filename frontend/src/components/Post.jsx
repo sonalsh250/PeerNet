@@ -9,6 +9,8 @@ import PostAction from "./PostAction.jsx";
 
 const Post = ({ post }) => {
 
+    const {postId} = useParams();
+
     const { data: authUser } = useQuery({ queryKey: ["authUser"], queryFn: async () => { return [] } });
     const [showComments, setShowComments] = useState(false); //show comment
     const [newComment, setNewComment] = useState(""); //add new comment
