@@ -9,12 +9,16 @@ import NetworkPage from './pages/NetworkPage.jsx'
 import PostPage from './pages/PostPage.jsx'
 import ProfilePage from './pages/ProfilePage.jsx'
 
+import ChatPopup from './components/ChatPopup.jsx'
+
 import toast, { Toaster } from 'react-hot-toast'
 import { useQuery } from '@tanstack/react-query'
 import { axiosInstance } from './lib/axios.js'
-import { useEffect } from 'react'
+import { useState } from 'react'
 
 function App() {
+
+  const [showChat, setShowChat] = useState(false);
 
   const { data: authUser, isLoading } = useQuery({
     queryKey: ['authUser'],
@@ -33,7 +37,7 @@ function App() {
   
   if (isLoading) return null;
   return (
-    <Layout>
+    <Layout setShowChat={setShowChat}>
       <Routes>
         <Route path='/' element={authUser ? <HomePage /> : <Navigate to="/login" />} />
         <Route path='/signup' element={!authUser ? <SignUpPage /> : <Navigate to="/" />} />
@@ -43,6 +47,7 @@ function App() {
         <Route path='/post/:postId' element={authUser ? <PostPage /> : <Navigate to="/login" />} />
         <Route path='/profile/:username' element={authUser ? <ProfilePage /> : <Navigate to="/login" />} />
       </Routes>
+      {showChat && <ChatPopup setShowChat={setShowChat} />}
       <Toaster />
     </Layout>
   )

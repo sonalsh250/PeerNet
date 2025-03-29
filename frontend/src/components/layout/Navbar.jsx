@@ -1,9 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "../../lib/axios";
 import { Link } from "react-router-dom";
-import { Bell, Home, LogOut, User, Users } from "lucide-react";
+import { Bell, Home, LogOut, User, Users, MessageSquare } from "lucide-react";
 
-const Navbar = () => {
+const Navbar = ({ setShowChat }) => {
 	//const { data: authUser } = useQuery({ queryKey: ["authUser"], queryFn: async () => {return null} });
 
 	const { data: authUser } = useQuery({
@@ -78,6 +78,13 @@ const Navbar = () => {
 										</span>
 									)}
 								</Link>
+								<button
+									onClick={() => setShowChat(true)}
+									className='text-neutral flex flex-col items-center'
+								>
+									<MessageSquare size={20} />
+									<span className='text-xs hidden md:block'>Messages</span>
+								</button>
 								<Link
 									to={`/profile/${authUser.username}`}
 									className='text-neutral flex flex-col items-center'

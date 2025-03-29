@@ -34,7 +34,6 @@ export const getPublicProfile = async(req, res) => {
 
 export const updateProfile = async(req, res) => {
     try {
-        console.log("Request Body:", req.body);
         const allowedFields = [
             "name",
             "username",

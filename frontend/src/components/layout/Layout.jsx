@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from './Navbar'
 //import { useQuery } from '@tanstack/react-query';
-const Layout = ({children}) => {
+const Layout = ({ children, setShowChat }) => {
   //it has already been fetched in App.jsx.
   //We are simply fetching it again using queryKey 
   // const {data:authUser, isLoading} = useQuery({queryKey: ['authUser'], queryFn: async () => {}});
@@ -10,7 +10,7 @@ const Layout = ({children}) => {
   return (
     //<div className='min-h-screen bg-base-100'>
     <div className='min-h-screen bg-gray-100'>
-        <Navbar />
+        <Navbar setShowChat={setShowChat}/>
         <main className='max-w-7xl mx-auto px-4 py-6'>
             {children}
         </main>
