@@ -14,6 +14,16 @@ const LoginForm = () => {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["authUser"] });
 		},
+		// onSuccess: (response) => {
+		// 	// Explicitly set the query data with the user information
+		// 	queryClient.setQueryData(['authUser'], response.data.user);
+			
+		// 	// Navigate to home page immediately
+		// 	navigate('/');
+
+		// 	// Optional: show success toast
+		// 	toast.success("Logged in successfully");
+		// },
 		onError: (err) => {
 			toast.error(err.response.data.message || "Something went wrong");
 		},

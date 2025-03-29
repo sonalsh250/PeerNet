@@ -23,11 +23,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         default:""
     },
-    bannerImage: {
+    bannerImg: {
         type: String,
         default:""
     },
-    headLine: {
+    headline: {
         type: String,
         default:"PeerNet User"
     },
@@ -39,19 +39,21 @@ const userSchema = new mongoose.Schema({
         type: String,
         default:""
     },
-    About: {
+    about: {
         type: String,
         default:""
     },
     skills:[String],
-    Experience: {
-        type: String,
-        company: String,
-        startDate: Date,
-        endDate: Date,
-        description: String
-    },
-    Education: [
+    experience: [
+        {
+            title: String,
+            company: String,
+            startDate: Date,
+            endDate: Date,
+            description: String,
+        },
+    ],
+    education: [
         {
             school: String,
             fieldOfStudy: String,

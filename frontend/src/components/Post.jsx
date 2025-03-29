@@ -11,7 +11,11 @@ const Post = ({ post }) => {
 
     const {postId} = useParams();
 
-    const { data: authUser } = useQuery({ queryKey: ["authUser"], queryFn: async () => { return [] } });
+    //const { data: authUser } = useQuery({ queryKey: ["authUser"], queryFn: async () => { return [] } });
+    //const { data: authUser } = useQuery({ queryKey: ["authUser"]});
+    const { data: authUser } = useQuery({ queryKey: ["authUser"],
+        
+    });
     const [showComments, setShowComments] = useState(false); //show comment
     const [newComment, setNewComment] = useState(""); //add new comment
     const [comments, setComments] = useState(post.comments || []); //if the post already has comments

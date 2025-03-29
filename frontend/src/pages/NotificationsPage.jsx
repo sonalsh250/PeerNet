@@ -7,7 +7,9 @@ import Sidebar from "../components/Sidebar";
 import { formatDistanceToNow } from "date-fns";
 
 const NotificationsPage = () => {
-    const { data: authUser } = useQuery({ queryKey: ["authUser"], queryFn: async () => {return []} });
+    const { data: authUser } = useQuery({ queryKey: ["authUser"], 
+		//queryFn: async () => {return []}
+	 });
 
     const queryClient = useQueryClient();
 

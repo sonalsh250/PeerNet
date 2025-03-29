@@ -6,7 +6,9 @@ import Post from "../components/Post.jsx";
 
 const PostPage = () => {
 	const { postId } = useParams();
-	const { data: authUser } = useQuery({ queryKey: ["authUser"], queryFn: async () => {return []} });
+	const { data: authUser } = useQuery({ queryKey: ["authUser"],
+		 //queryFn: async () => {return []}
+		 });
 
 	const { data: post, isLoading } = useQuery({
 		queryKey: ["post", postId],

@@ -16,7 +16,7 @@ const ProfilePage = () => {
 	const { data: authUser, isLoading } = useQuery({
 		queryKey: ["authUser"],
         //queryFn: async () => axiosInstance.get("/auth/me"),
-        queryFn: async () => {return []},
+        //queryFn: async () => {return []},
 	});
 
     const { data: userProfile, isLoading: isUserProfileLoading } = useQuery({

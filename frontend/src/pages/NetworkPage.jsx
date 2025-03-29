@@ -6,7 +6,9 @@ import FriendRequest from "../components/FriendRequest.jsx";
 import UserCard from "../components/UserCard.jsx";
 
 const NetworkPage = () => {
-    const { data: user } = useQuery({ queryKey: ["authUser"], queryFn: async () => { return [] } });
+    const { data: user } = useQuery({ queryKey: ["authUser"], 
+		// queryFn: async () => { return [] } 
+	});
 
     const { data: connectionRequests } = useQuery({
         queryKey: ["connectionRequests"],

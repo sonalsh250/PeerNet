@@ -4,7 +4,16 @@ import { Link } from "react-router-dom";
 import { Bell, Home, LogOut, User, Users } from "lucide-react";
 
 const Navbar = () => {
-	const { data: authUser } = useQuery({ queryKey: ["authUser"], queryFn: async () => {return null} });
+	//const { data: authUser } = useQuery({ queryKey: ["authUser"], queryFn: async () => {return null} });
+
+	const { data: authUser } = useQuery({
+		queryKey: ["authUser"],
+		// queryFn: () => queryClient.getQueryData(['authUser']) || null,
+		// // If you want to disable refetching
+		// staleTime: Infinity,
+		// // Keep previously fetched data
+		// keepPreviousData: true
+	});
 	const queryClient = useQueryClient();
 	console.log("navbar user", authUser);
 	const { data: notifications } = useQuery({
